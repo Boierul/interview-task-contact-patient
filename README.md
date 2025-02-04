@@ -39,7 +39,7 @@ To install the required packages, you must have yarn installed. Then run the com
 
 ## Application cache and wierd problems
 
-If you experience any wierd problems that might be related to build cache, you can always delete the `/dist` and `/node_modules/.cache` directories and rebuild your application. 
+If you experience any weird problems that might be related to build cache, you can always delete the `/dist` and `/node_modules/.cache` directories and rebuild your application. 
 
 Furthermore, deleting the `/node_modules` directory and running `yarn install` can also be a good troubleshooting technique.
 
