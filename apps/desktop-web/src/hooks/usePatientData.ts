@@ -70,7 +70,7 @@ export const usePatientData = (patientId: string)=> {
    * @param {boolean} newContactedValue - The new contacted status of the patient
    * @returns {Promise<void>} - used in the detailed patient page
    */
-  const handleUpdateContacted = async (newContactedValue: boolean) => {
+  const handleUpdateContacted = async (newContactedValue: boolean): Promise<void> => {
     try {
       const updatedPatient = await updateContactedPatient(patientId, newContactedValue);
       setPatient((prevPatient) => ({
