@@ -1,5 +1,5 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Descriptions, Skeleton, TreeSelect } from 'antd';
+import { Button, Descriptions, Skeleton } from 'antd';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
@@ -184,7 +184,7 @@ export function PatientPage(props: PatientPageProps) {
           <li
             key={patient.id}
             className="patient-card"
-            onClick={() => history.push(``)}
+            onClick={() => history.push(`/patient/${patient.id}`)}
           >
             <div className="patient-name">
               {patient.firstName} {patient.lastName}
