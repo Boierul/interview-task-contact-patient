@@ -6,7 +6,7 @@ import { sample } from 'lodash';
 import { GenderService } from '../modules/dal/gender/gender.service';
 import { PatientService } from '../modules/dal/patient';
 
-@Controller('seed')
+@Controller('api/v1/seed')
 export class SeedController {
   private defaultGenders: GenderNameType[] = ['female', 'male'];
   private defaultPatientsCount = 20;

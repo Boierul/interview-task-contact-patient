@@ -4,7 +4,7 @@ import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { GenderDto } from './gender.dto';
 
 /**
- * DTO for necessary details for a patient, e.g. for list views.
+ * DTO for necessary details for a patient, e.g., for list views.
  */
 export class ListPatientDto {
   @ApiProperty({
@@ -80,7 +80,7 @@ export class UpdatePatientDto implements Partial<DetailedPatientDto> {
 
   @ApiPropertyOptional({
     description: 'First name of the patient',
-    example: ['John'],
+    example: 'John',
   })
   @IsOptional()
   @IsString()
@@ -88,7 +88,7 @@ export class UpdatePatientDto implements Partial<DetailedPatientDto> {
 
   @ApiPropertyOptional({
     description: 'Last name of the patient',
-    example: ['Doe'],
+    example: 'Doe',
   })
   @IsOptional()
   @IsString()
@@ -113,3 +113,17 @@ export class UpdatePatientDto implements Partial<DetailedPatientDto> {
   @Exclude()
   updated?: never;
 }
+
+// For FRONT-END
+/* ------------------------------------------------------------------------------------------ */
+
+/**
+ * DTO to avoid TS error and enhance readability
+ */
+export class PatientStatsDTO {
+  totalPatientsCount: number;
+  contactedPatientsCount: number;
+  remainingPatientsCount: number;
+}
+
+

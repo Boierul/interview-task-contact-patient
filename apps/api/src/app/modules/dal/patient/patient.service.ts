@@ -53,7 +53,10 @@ export class PatientService {
    * @returns         Count as number.
    */
   async count(contacted: boolean): Promise<number> {
-    return this.repo.count({ contacted: contacted });
+    if (contacted === undefined) {
+      return this.repo.count();
+    }
+    return this.repo.count({ where: { contacted } });
   }
 
   /**
@@ -75,10 +78,10 @@ export class PatientService {
     id: string,
     patient: UpdatePatientDto
   ): Promise<DetailedPatientDto> {
-    const existingPatient = await this.repo.findOne(patient.id);
+    const existingPatient = await this.repo.findOne(id);
 
     if (!existingPatient) {
-      throw new NotFoundException(`Patient with id ${patient.id} not found`);
+      throw new NotFoundException(`Patient with id ${id} not found`);
     }
 
     return this.repo.save({

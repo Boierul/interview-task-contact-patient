@@ -1,0 +1,48 @@
+.patient-grid-container {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.patient-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.patient-card:hover {
+  transform: translateY(-2px);
+}
+
+.patient-name {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.patient-status {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.status-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-top: 4px;
+}
+
+.status-contacted {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-uncontacted {
+  background-color: #ffebee;
+  color: #c62828;
+}

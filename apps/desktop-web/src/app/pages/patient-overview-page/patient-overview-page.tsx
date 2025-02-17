@@ -19,6 +19,8 @@ export function PatientOverviewPage() {
   // State of the contacted filter
   const [filterContacted, setFilterContacted] = React.useState(false);
 
+  /* ------------------------------------------------------------------------------------------ */
+
   /**
    * Function for fetching patients from the API.
    * Handles updating loading state and settings patient data state.
@@ -32,7 +34,7 @@ export function PatientOverviewPage() {
     };
 
     axios
-      .get('http://localhost:3333/patients', { params: params })
+      .get('http://localhost:3333/api/v1/patients', { params: params })
       .then((response) => {
         if (response?.data) {
           setPatients(response.data);
@@ -40,6 +42,8 @@ export function PatientOverviewPage() {
         setLoadingPatients(false);
       });
   };
+
+  /* ------------------------------------------------------------------------------------------ */
 
   /**
    * Fetch patients from the API when the filterContacted state changes
@@ -74,7 +78,7 @@ export function PatientOverviewPage() {
   ];
 
   return (
-    <div>
+    <main>
       <div
         style={{
           display: 'flex',
@@ -86,12 +90,20 @@ export function PatientOverviewPage() {
       >
         <h1>Patient overview</h1>
 
-        <Switch
-          checkedChildren="Contacted"
-          unCheckedChildren="Not contacted"
-          defaultChecked={filterContacted}
-          onChange={(checked: boolean) => setFilterContacted(checked)}
-        />
+        <div
+          style={{
+            display: 'flex',
+            gap: '8px',
+            alignItems: 'center',
+          }}
+        >
+          <Switch
+            checkedChildren="Contacted"
+            unCheckedChildren="Not contacted"
+            defaultChecked={filterContacted}
+            onChange={(checked: boolean) => setFilterContacted(checked)}
+          />
+        </div>
       </div>
 
       <Table
@@ -103,7 +115,7 @@ export function PatientOverviewPage() {
 
       <Button
         onClick={() => {
-          axios.post('http://localhost:3333/seed').then((response) => {
+          axios.post('http://localhost:3333/api/v1/seed').then((response) => {
             console.log('Data seeded');
             getPatientData(filterContacted);
           });
@@ -111,6 +123,6 @@ export function PatientOverviewPage() {
       >
         Seed data
       </Button>
-    </div>
+    </main>
   );
 }
