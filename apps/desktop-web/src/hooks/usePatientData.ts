@@ -78,12 +78,13 @@ export const usePatientData = (patientId: string)=> {
         ...updatedPatient,
       }));
 
-      // Re-fetch the stats to get the updated counts
-      const updatedStats = await fetchPatientStats();
-      setStats(updatedStats);
+      // Re-fetch the stats and uncontacted patients list
+      const [updatedStats, updatedUncontactedPatients] = await Promise.all([
+        fetchPatientStats(),
+        fetchUncontactedPatients(),
+      ]);
 
-      // Re-fetch the list of uncontacted patients
-      const updatedUncontactedPatients = await fetchUncontactedPatients();
+      setStats(updatedStats);
       setUncontactedPatients(updatedUncontactedPatients);
 
     } catch (error) {
