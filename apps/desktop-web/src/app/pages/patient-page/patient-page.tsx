@@ -46,14 +46,9 @@ export function PatientPage(props: PatientPageProps) {
 
   // Keep track of the contacted/uncontacted - solving skipping one patient bug
   // Unorthodox, but it works
-  const [isContactedForNext, setIsContactedForNext] = useState(false);
   const goToNextPatient = () => {
     if (currentPatientIndex < uncontactedPatients.length - 1) {
-      const nextIndex = isContactedForNext
-        ? currentPatientIndex
-        : currentPatientIndex + 1;
-
-      const nextPatientId = uncontactedPatients[nextIndex].id;
+      const nextPatientId = uncontactedPatients[currentPatientIndex + 1].id;
       history.push(`/patient/${nextPatientId}`);
     }
   };
@@ -117,9 +112,7 @@ export function PatientPage(props: PatientPageProps) {
           <Button
             type="primary"
             onClick={() => {
-              const newContactedState = !patient.contacted;
-              setIsContactedForNext(newContactedState);
-              handleUpdateContacted(newContactedState);
+              handleUpdateContacted(!patient.contacted);
             }}
           >
             {patient.contacted ? 'Mark not contacted' : 'Mark contacted'}
