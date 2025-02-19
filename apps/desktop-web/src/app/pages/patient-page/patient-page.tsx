@@ -27,6 +27,8 @@ export function PatientPage(props: PatientPageProps) {
     handleUpdateContacted,
   } = usePatientData(patientId);
 
+  /* ------------------------------------------------------------------------------------------ */
+
   // Change the current index dynamically
   useEffect(() => {
     if (patientId && uncontactedPatients.length > 0) {
@@ -37,6 +39,8 @@ export function PatientPage(props: PatientPageProps) {
     }
   }, [patientId, uncontactedPatients]);
 
+  /* ------------------------------------------------------------------------------------------ */
+
   const goToPreviousPatient = () => {
     if (currentPatientIndex > 0) {
       const previousIndex = currentPatientIndex - 1;
@@ -45,14 +49,15 @@ export function PatientPage(props: PatientPageProps) {
     }
   };
 
-  // Keep track of the contacted/uncontacted - solving skipping one patient bug
-  // Unorthodox, but it works
   const goToNextPatient = () => {
     if (currentPatientIndex < uncontactedPatients.length - 1) {
-      const nextPatientId = uncontactedPatients[currentPatientIndex + 1].id;
+      const nextIndex = currentPatientIndex + 1;
+      const nextPatientId = uncontactedPatients[nextIndex].id;
       history.push(`/patient/${nextPatientId}`);
     }
   };
+
+  /* ------------------------------------------------------------------------------------------ */
 
   if (loadingPatient) {
     return <Skeleton />;
