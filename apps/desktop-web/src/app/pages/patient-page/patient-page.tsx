@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 
-import "./styles.css"
+import './styles.css';
 import { PatientOverviewUrl } from '../urls';
 import { usePatientData } from '../../../hooks/usePatientData';
 
@@ -22,6 +22,7 @@ export function PatientPage(props: PatientPageProps) {
     patient,
     loadingPatient,
     uncontactedPatients,
+    contactedPatients,
     stats,
     handleUpdateContacted,
   } = usePatientData(patientId);
@@ -164,44 +165,75 @@ export function PatientPage(props: PatientPageProps) {
         <b>Current Patient Index (not contacted): {currentPatientIndex + 1}</b>
       </p>
 
-      <p
-        style={{
-          fontSize: '18px',
-        }}
-      >
-        <b>Uncontacted patients</b>
-      </p>
-      {/*TODO - redirect to detailed page*/}
-      <ul className="patient-grid-container">
-        {uncontactedPatients?.map((patient) => (
-          <li
-            key={patient.id}
-            className="patient-card"
-            onClick={() => history.push(`/patient/${patient.id}`)}
-          >
-            <div className="patient-name">
-              {patient.firstName} {patient.lastName}
-            </div>
-            <div className="patient-status">
-              <span
-                className={`status-tag ${
-                  patient.contacted ? 'status-contacted' : 'status-uncontacted'
-                }`}
-              >
-                {patient.contacted ? 'Contacted' : 'Not Contacted'}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <section>
+        <p
+          style={{
+            fontSize: '18px',
+          }}
+        >
+          <b>Uncontacted patients</b>
+        </p>
+        {/*TODO - redirect to detailed page????*/}
+        <ul className="patient-grid-container">
+          {uncontactedPatients?.map((patient) => (
+            <li
+              key={patient.id}
+              className="patient-card"
+              onClick={() => history.push(`/patient/${patient.id}`)}
+            >
+              <div className="patient-name">
+                {patient.firstName} {patient.lastName}
+              </div>
+              <div className="patient-status">
+                <span
+                  className={`status-tag ${
+                    patient.contacted
+                      ? 'status-contacted'
+                      : 'status-uncontacted'
+                  }`}
+                >
+                  {patient.contacted ? 'Contacted' : 'Not Contacted'}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      {/*<p*/}
-      {/*  style={{*/}
-      {/*    fontSize: '18px',*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <b>Contacted patients</b>*/}
-      {/*</p>*/}
+      <section>
+        <p
+          style={{
+            fontSize: '18px',
+          }}
+        >
+          <b>Contacted patients</b>
+        </p>
+
+        <ul className="patient-grid-container">
+          {contactedPatients?.map((patient) => (
+            <li
+              key={patient.id}
+              className="patient-card"
+              onClick={() => history.push(`/patient/${patient.id}`)}
+            >
+              <div className="patient-name">
+                {patient.firstName} {patient.lastName}
+              </div>
+              <div className="patient-status">
+                <span
+                  className={`status-tag ${
+                    patient.contacted
+                      ? 'status-contacted'
+                      : 'status-uncontacted'
+                  }`}
+                >
+                  {patient.contacted ? 'Contacted' : 'Not Contacted'}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }

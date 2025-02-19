@@ -3,7 +3,7 @@ import {
   fetchPatient,
   fetchUncontactedPatients,
   fetchPatientStats,
-  updateContactedPatient,
+  updateContactedPatient, fetchContactedPatients
 } from '../services/patientService';
 import { DetailedPatientDto } from '@contact-patient/dtos';
 
@@ -30,6 +30,7 @@ export const usePatientData = (patientId: string)=> {
   const [patient, setPatient] = useState<DetailedPatientDto>();
   const [loadingPatient, setLoadingPatient] = useState(false);
   const [uncontactedPatients, setUncontactedPatients] = useState<DetailedPatientDto[]>([]);
+  const [contactedPatients, setContactedPatients] = useState<DetailedPatientDto[]>([]);
   const [stats, setStats] = useState({
     totalPatientsCount: 0,
     contactedPatientsCount: 0,
@@ -41,14 +42,16 @@ export const usePatientData = (patientId: string)=> {
       setLoadingPatient(true);
 
       try {
-        const [patientData, uncontactedData, statsData] = await Promise.all([
+        const [patientData, uncontactedData, contactedData, statsData] = await Promise.all([
           fetchPatient(patientId),
           fetchUncontactedPatients(),
+          fetchContactedPatients(),
           fetchPatientStats(),
         ]);
 
         setPatient(patientData);
         setUncontactedPatients(uncontactedData);
+        setContactedPatients(contactedData);
         setStats(statsData);
 
       } catch (error) {
@@ -79,13 +82,15 @@ export const usePatientData = (patientId: string)=> {
       }));
 
       // Re-fetch the stats and uncontacted patients list
-      const [updatedStats, updatedUncontactedPatients] = await Promise.all([
+      const [updatedStats, updatedUncontactedPatients, updatedContactedPatients] = await Promise.all([
         fetchPatientStats(),
         fetchUncontactedPatients(),
+        fetchContactedPatients(),
       ]);
 
       setStats(updatedStats);
       setUncontactedPatients(updatedUncontactedPatients);
+      setContactedPatients(updatedContactedPatients);
 
     } catch (error) {
       console.error('Error updating patient:', error);
@@ -96,6 +101,7 @@ export const usePatientData = (patientId: string)=> {
     patient,
     loadingPatient,
     uncontactedPatients,
+    contactedPatients,
     stats,
     handleUpdateContacted,
   };
